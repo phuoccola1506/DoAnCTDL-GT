@@ -55,13 +55,13 @@ public class cacbaitoandequy {
 
     public static void solveHanoi(int n, char source, char auxiliary, char target) {
         if (n == 1) {
-            System.out.println("Di chuyển đĩa " + n + " từ " + source + " sang " + target);
+            System.out.println("Di chuyen dia " + n + " tu " + source + " sang " + target);
             return;
         }
 
         solveHanoi(n - 1, source, target, auxiliary);
 
-        System.out.println("Di chuyển đĩa " + n + " từ " + source + " sang " + target);
+        System.out.println("Di chuyen dia " + n + " tu " + source + " sang " + target);
 
         solveHanoi(n - 1, auxiliary, source, target);
     }

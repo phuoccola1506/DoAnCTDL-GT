@@ -7,10 +7,12 @@ package DoAn;
 import SapXep.InsertionSort;
 import SapXep.QuickSort;
 import SapXep.SelectionSort;
+import Tree.BinaryTree;
+import Tree.Node;
 import dequy.cacbaitoandequy;
 import dequy.cacbaitoankhudequy;
+import dslkdonDao.Link;
 import dslkdonDao.LinkList;
-import static dslkdonDao.dslkdon_main.menu;
 import java.util.Scanner;
 
 /**
@@ -20,6 +22,8 @@ import java.util.Scanner;
 public class Main {
 
     static LinkList list = new LinkList();
+    static BinaryTree tree = new BinaryTree();
+
     /**
      * @param args the command line arguments
      */
@@ -119,6 +123,7 @@ public class Main {
                 case 2 -> {
                     menuSapXep();
                     int chon = sc.nextInt();
+                    sc.nextLine();
                     switch (chon) {
                         case 1 -> {
                             System.out.println("Sap xep kieu Selection Sort");
@@ -128,7 +133,7 @@ public class Main {
                             int[] arr = new int[n];
 
                             for (int i = 0; i < n; i++) {
-                                System.out.print("Duyet phan tu thu: " + (i + 1));
+                                System.out.printf("Duyet phan tu thu %d: ", (i + 1));
                                 arr[i] = sc.nextInt();
                                 sc.nextLine();
                             }
@@ -147,7 +152,7 @@ public class Main {
                             int[] arr = new int[n];
 
                             for (int i = 0; i < n; i++) {
-                                System.out.print("Duyet phan tu thu: " + (i + 1));
+                                System.out.printf("Duyet phan tu thu %d: ", (i + 1));
                                 arr[i] = sc.nextInt();
                                 sc.nextLine();
                             }
@@ -166,7 +171,7 @@ public class Main {
                             int[] arr = new int[n];
 
                             for (int i = 0; i < n; i++) {
-                                System.out.print("Duyet phan tu thu: " + (i + 1));
+                                System.out.printf("Duyet phan tu thu %d: ", (i + 1));
                                 arr[i] = sc.nextInt();
                                 sc.nextLine();
                             }
@@ -188,6 +193,7 @@ public class Main {
                 case 3 -> {
                     menuDslkDon();
                     int chon = sc.nextInt();
+                    sc.nextLine();
                     switch (chon) {
                         case 1 -> {
                             System.out.println("Nhap thong tin sinh vien");
@@ -204,6 +210,7 @@ public class Main {
                                 sc.nextLine();
                                 list.insert(maSV, hoten, diem);
                             }
+                            sc.close();
                         }
                         case 2 -> {
                             list.ghifile();
@@ -230,12 +237,46 @@ public class Main {
                             list.max();
                         }
                         case 8 -> {
+                            System.out.println("Thong ke sinh vien theo ket qua");
+                            list.thongKeKetQua();
+                        }
+                        case 9 -> {
                             System.out.println("Thong ke sinh vien theo xep loai");
                             list.thongKeXepLoai();
                         }
-                        case 9 -> {
+                        case 10 -> {
                             System.out.println("Sap xep sinh vien");
                             list.sapXep();
+                        }
+                        case 11 -> {
+                            System.out.println("Nhap ma sinh vien muon tim");
+                            System.out.print("Ma sinh vien: ");
+                            String maSV = sc.nextLine();
+                            Link sv = list.timKiem(maSV);
+                            System.out.println("Thong tim sinh vien can tim");
+                            System.out.println("MaSV: " + sv.getMaSV());
+                            System.out.println("Ho va ten: " + sv.getHoten());
+                            System.out.println("Diem: " + sv.getDiem());
+
+                        }
+                        case 12 -> {
+                            System.out.println("Nhap ma sinh vien muon xoa");
+                            System.out.print("Ma sinh vien: ");
+                            String maSV = sc.nextLine();
+                            boolean a = list.xoaSinhVien(maSV);
+                            if (a == true) {
+                                System.out.println("Xoa thanh cong");
+                            } else {
+                                System.out.println("Xoa khong thanh cong");
+                            }
+                        }
+                        case 13 -> {
+                            System.out.println("Ket noi toi CSDL");
+                            System.out.print("Nhap username: ");
+                            String username = sc.nextLine();
+                            System.out.print("Nhap password: ");
+                            String password = sc.nextLine();
+                            list.ketNoiCSDL(username, password);
                         }
                         case 0 -> {
                             System.out.println("Da thoat chuong trinh");
@@ -243,7 +284,31 @@ public class Main {
                         }
                     }
                 }
-            case 0 -> {
+                case 4 -> {
+                    menuCayNhiPhan();
+                    int chon = sc.nextInt();
+                    sc.nextLine();
+                    switch (chon) {
+                        case 1 -> {
+                            System.out.println("Ket noi toi CSDL");
+                            System.out.print("Nhap username: ");
+                            String username = sc.nextLine();
+                            System.out.print("Nhap password: ");
+                            String password = sc.nextLine();
+                            tree.ketNoiCSDL(username, password);
+                        }
+                        case 2 -> {
+                            System.out.println("In danh sach sinh vien");
+                            tree.duyet();
+                        }
+                        case 0 -> {
+                            System.out.println("Da thoat chuong trinh");
+                            bool = false;
+                        }
+                        default -> throw new AssertionError();
+                    }
+                }
+                case 0 -> {
                     System.out.println("Da thoat chuong trinh!");
                     bool = false;
                 }
@@ -251,7 +316,7 @@ public class Main {
                     System.out.println("Lua chon khong phu hop, hay chon lai!");
             }
         } while (bool == true);
-        }
+    }
 
     public static void menuChinh() {
         System.out.println("========================================");
@@ -271,7 +336,7 @@ public class Main {
         System.out.println("|         CHUONG TRINH DE QUY          |");
         System.out.println("========================================");
         System.out.println("| --- Bai toan de quy ---              |");
-        System.out.println("| 1. Bai toan Fibonacy                 |");
+        System.out.println("| 1. Bai toan Fibonaci                 |");
         System.out.println("| 2. Bai toan giai thua                |");
         System.out.println("| 3. Bai toan tong giai thua           |");
         System.out.println("| 4. Bai toan luy thua                 |");
@@ -280,7 +345,7 @@ public class Main {
         System.out.println("| 7. Bai toan Town of Hanoi            |");
         System.out.println("| --- Bai toan khu de quy ---          |");
         System.out.println("| 8. Bai toan khu nhi phan             |");
-        System.out.println("| 9. Bai toan khu Fibonacy             |");
+        System.out.println("| 9. Bai toan khu Fibonaci             |");
         System.out.println("| 0. Thoat chuong trinh                |");
         System.out.println("========================================");
         System.out.print("Hay chon chuc nang: ");
@@ -297,7 +362,7 @@ public class Main {
         System.out.println("========================================");
         System.out.print("Hay chon chuc nang: ");
     }
-    
+
     public static void menuDslkDon() {
         System.out.println("========================================");
         System.out.println("|         CHUONG TRINH DSLKDON         |");
@@ -309,9 +374,23 @@ public class Main {
         System.out.println("| 5. Ket qua                           |");
         System.out.println("| 6. Xep loai                          |");
         System.out.println("| 7. Lon nhat                          |");
-        System.out.println("| 8. Thong ke                          |");
-        System.out.println("| 9. Sap xep                           |");
+        System.out.println("| 8. Thong ke theo ket qua             |");
+        System.out.println("| 9. Thong ke theo xep loai            |");
+        System.out.println("| 10. Sap xep                          |");
+        System.out.println("| 11. Tim sinh vien                    |");
+        System.out.println("| 12. Xoa sinh vien                    |");
+        System.out.println("| 13. Ket noi CSDL                     |");
         System.out.println("| 0. Thoat chuong trinh                |");
+        System.out.println("========================================");
+        System.out.print("Hay chon chuc nang: ");
+    }
+    
+    public static void menuCayNhiPhan() {
+        System.out.println("========================================");
+        System.out.println("|      CHUONG TRINH CAY NHI PHAN       |");
+        System.out.println("========================================");
+        System.out.println("| 1. Nhap thong tin tu CSDL            |");
+        System.out.println("| 2. In danh sach Node                 |");
         System.out.println("========================================");
         System.out.print("Hay chon chuc nang: ");
     }

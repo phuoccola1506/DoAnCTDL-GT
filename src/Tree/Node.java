@@ -56,10 +56,10 @@ public class Node {
 
     public void setKq(double kq) {
         if (getDiem() > 5) {
-            this.kq = "Dau";
+            this.kq = "Dat";
         }
         else {
-            this.kq = "Rot";
+            this.kq = "Khong dat";
         }
     }
 
